@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100396912828",
+    "project_id": "pruebacorta-26417",
+    "storage_bucket": "pruebacorta-26417.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100396912828:android:55241079d3c226e02b80b9",
+        "android_client_info": {
+          "package_name": "com.pruebacorta.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQl9gcf-Xn_Qlit_Z58cEX5r_OthDBP9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

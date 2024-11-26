@@ -1,19 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'visitante_form.dart';
+import 'visitante_model.dart';
 
-void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class VisitanteListPage extends StatelessWidget {
+  final CollectionReference visitantesRef =
+      FirebaseFirestore.instance.collection('visitantes');
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('List visit'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VisitanteForm(),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: visitantesRef.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          final data = snapshot.data!;
+          final visitantes = data.docs
+              .map((doc) =>
+                  Visitante.fromMap(doc.id, doc.data() as Map<String, dynamic>))
+              .toList();
+          return ListView.builder(
+            itemCount: visitantes.length,
+            itemBuilder: (context, index) {
+              final visitante = visitantes[index];
+              return ListTile(
+                title: Text(visitante.nombre),
+                subtitle: Text(visitante.email),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VisitanteForm(visitante: visitante),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
