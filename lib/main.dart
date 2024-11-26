@@ -3,15 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'visitante_form.dart';
 import 'visitante_model.dart';
 
-class VisitanteListPage extends StatelessWidget {
-  final CollectionReference visitantesRef =
+class visitanteListpage extends StatelessWidget {
+  final CollectionReference visitanteRef =
       FirebaseFirestore.instance.collection('visitantes');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List visit'),
+        title: Text('List  visit'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
@@ -27,7 +27,7 @@ class VisitanteListPage extends StatelessWidget {
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: visitantesRef.snapshots(),
+        stream: visitanteRef.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));

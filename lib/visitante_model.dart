@@ -1,25 +1,58 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Visitante {
-  String id; // ID del visitante (usualmente el ID de Firebase)
-  String nombre; // Nombre del visitante
-  String email; // Email del visitante
+  String id;
+  String nombre;
+  String identificacion;
+  String motivoVisita;
+  String aQuienVisita;
+  DateTime horaEntrada;
+  DateTime horaSalida;
+  String medioTransporte;
+  int acompanantes;
+  String fotoUrl;
 
-  // Constructor para crear un objeto Visitante
-  Visitante({required this.id, required this.nombre, required this.email});
+  Visitante({
+    required this.id,
+    required this.nombre,
+    required this.identificacion,
+    required this.motivoVisita,
+    required this.aQuienVisita,
+    required this.horaEntrada,
+    required this.horaSalida,
+    required this.medioTransporte,
+    required this.acompanantes,
+    required this.fotoUrl,
+  });
 
-  // Método para convertir el objeto a un mapa (usado al guardar en Firestore)
+  // Convertir a Map para Firestore
   Map<String, dynamic> toMap() {
     return {
       'nombre': nombre,
-      'email': email,
+      'identificacion': identificacion,
+      'motivoVisita': motivoVisita,
+      'aQuienVisita': aQuienVisita,
+      'horaEntrada': horaEntrada,
+      'horaSalida': horaSalida,
+      'medioTransporte': medioTransporte,
+      'acompanhantes': acompanantes,
+      'fotoUrl': fotoUrl,
     };
   }
 
-  // Método para crear un objeto Visitante desde un mapa (usado al leer de Firestore)
+  // Convertir de Map a objeto Visitante
   static Visitante fromMap(String id, Map<String, dynamic> map) {
     return Visitante(
       id: id,
       nombre: map['nombre'] ?? '',
-      email: map['email'] ?? '',
+      identificacion: map['identificacion'] ?? '',
+      motivoVisita: map['motivoVisita'] ?? '',
+      aQuienVisita: map['aQuienVisita'] ?? '',
+      horaEntrada: (map['horaEntrada'] as Timestamp).toDate(),
+      horaSalida: (map['horaSalida'] as Timestamp).toDate(),
+      medioTransporte: map['medioTransporte'] ?? '',
+      acompanantes: map['acompanhantes'] ?? 0,
+      fotoUrl: map['fotoUrl'] ?? '',
     );
   }
 }
