@@ -2,6 +2,10 @@ class Visitante {
   String id;
   String nombre;
   String email;
+  String motivovista;
+  String Aquienvisita;
+  String Horaentra;
+  String HoraSalida;
 
   Visitante({required this.id, required this.nombre, required this.email});
 
@@ -9,6 +13,10 @@ class Visitante {
     return {
       'nombre': nombre,
       'email': email,
+      'motivovisita': motivovista,
+      'Aquienvisita': Aquienvisita,
+      'Horaestrada': Horaentra,
+      'HoraSalida': HoraSalida,
     };
   }
 
